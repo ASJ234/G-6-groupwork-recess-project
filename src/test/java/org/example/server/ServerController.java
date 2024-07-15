@@ -137,6 +137,25 @@ public class ServerController {
         return clientResponse;
     }
 
+    // Method to view applicants based on school's registration number
+    private JSONObject viewApplicants(JSONObject obj) throws IOException {
+        // Extract registration number from object
+        String registration_number = obj.getString("registration_number");
+
+        // Initialize file storage for participants
+        FileStorage fileStorage = new FileStorage("participantsfile.json");
+
+        // Filter participants by registration number
+        String participants = fileStorage.filterParticipantsByRegNo(registration_number);
+
+        // Prepare client response JSON object
+        JSONObject clientResponse = new JSONObject();
+        clientResponse.put("command", "viewApplicants");
+        clientResponse.put("applicants", participants);
+
+        return clientResponse;
+    }
+
 
     // Main method to run appropriate logic based on command received
     public JSONObject run() throws IOException, SQLException, ClassNotFoundException, MessagingException {
@@ -148,6 +167,15 @@ public class ServerController {
             case "register":
                 // Call registration logic
                 return this.register(this.obj);
+
+            case "confirm":
+                // Call confirmation logic
+                return this.confirm(this.obj);
+
+            case "viewApplicants":
+                // Call view applicants logic
+                return this.viewApplicants(this.obj);
+
 
             default:
                 // Unrecognized command

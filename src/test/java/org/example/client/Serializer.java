@@ -60,6 +60,31 @@ public class Serializer {
         return "You have Successfully logged out";
     }
 
+    // Method to handle viewing applicants
+    public String viewApplicants() {
+        // Create JSON object for viewApplicants command
+        JSONObject obj = new JSONObject();
+        obj.put("command", "viewApplicants");
+        obj.put("isAuthenticated", this.user.isAuthenticated);
+        obj.put("isStudent", this.user.isStudent);
+        obj.put("registration_number", this.user.registration_number);
+
+        return obj.toString(4);
+    }
+
+    // Method to handle confirmation process
+    public String confirm(String[] arr) {
+        // Create JSON object for confirm command
+        JSONObject obj = new JSONObject();
+        obj.put("command", "confirm");
+        obj.put("username", arr[2]);
+        obj.put("registration_number", this.user.registration_number);
+        obj.put("confirm", (arr[1].toLowerCase().equals("yes")) ? true : false);
+        obj.put("tokens", arr);
+
+        return obj.toString(4);
+    }
+
     // Method to serialize commands and execute appropriate actions
     public String serialize(String command) {
         String[] tokens = command.split("\\s+");
@@ -88,6 +113,12 @@ public class Serializer {
             switch (tokens[0]) {
                 case "logout":
                     return this.logout();
+
+                case "confirm":
+                    return this.confirm(tokens);
+
+                case "viewApplicants":
+                    return this.viewApplicants();
 
                 default:
                     return "Invalid school representative command";
