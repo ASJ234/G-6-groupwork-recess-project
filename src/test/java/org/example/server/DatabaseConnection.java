@@ -79,5 +79,18 @@ public class DatabaseConnection {
         String sqlCommand = "SELECT * FROM `schools` WHERE registration_number = " + registration_number + ";";
         return this.statement.executeQuery(sqlCommand);
     }
+    // Method to retrieve challenges from the database
+    public ResultSet getChallenges() throws SQLException {
+        String sql = "SELECT * FROM `mtc_challenge_comp`.`challenge` WHERE `starting_date` <= CURRENT_DATE AND `closing_date` >= CURRENT_DATE;";
+        return this.statement.executeQuery(sql);
+    }
+    // Method to retrieve challenge questions from the database by challenge_id
+    public ResultSet getChallengeQuestions(int challenge_id) throws SQLException {
+        String sql = "SELECT qar.* FROM `mtc_challenge_comp`.`question_answer_record` qar JOIN `mtc_challenge_comp`.`challenge_question_answer_record` cqar ON qar.question_id = cqar.question_id WHERE cqar.challenge_id = ?";
+        PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
+        preparedStatement.setInt(1, challenge_id);
+        return preparedStatement.executeQuery();
+    }
 }
+
 

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ServerController {
+public class  ServerController {
     JSONObject obj;
 
     // Constructor to initialize ServerController with JSONObject
