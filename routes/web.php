@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+<<<<<<< HEAD
+=======
+Route::resource('questions', QuestionController::class)->except(['show']);
+Route::get('/questAnswer', [PageController::class, 'index'])->name('questAnswer');
+Route::get('/questions/index', [QuestionController::class, 'index'])->name('questions.index');
+>>>>>>> fddc7227e2a16386d8831b6966ef3473e83ac8fc
