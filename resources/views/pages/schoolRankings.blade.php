@@ -51,6 +51,7 @@
 
         // Extract labels and data for the chart
         const chartLabels = topPerformingSchools.map(school => school.name);
+<<<<<<< HEAD
         const chartData = topPerformingSchools.map(school => {
             // Assuming each school has an 'average_score' field
             return school.average_score;
@@ -58,6 +59,9 @@
 
         // Debugging
         console.log(chartLabels, chartData);
+=======
+        const chartData = topPerformingSchools.map(school => school.average_score);
+>>>>>>> cba6e9862a6360539b55f2d44bb0bcce87c5bc6f
 
         // Creating Chart.js instance
         const ctx = document.getElementById('schoolRankingsChart').getContext('2d');
@@ -93,4 +97,11 @@
         });
     });
 </script>
+<<<<<<< HEAD
 @endsection
+=======
+
+
+
+@endsection
+>>>>>>> cba6e9862a6360539b55f2d44bb0bcce87c5bc6f
